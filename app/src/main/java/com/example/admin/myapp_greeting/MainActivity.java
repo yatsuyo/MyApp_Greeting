@@ -1,4 +1,4 @@
-// あいさつ課題
+// 【課題】あいさつアプリ
 package com.example.admin.myapp_greeting;
 
 import android.app.TimePickerDialog;
@@ -59,14 +59,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView textView = (TextView) findViewById(R.id.textView);
             //textView.setText(hour3 + ":" + minute3);
 
+            //時、分の値が1桁の場合に前に0を追加するメソッド
+            //private static String pad(minute3) {
+            //if (minute3 >= 10)
+            //    return String.valueOf(minute3);
+            //else
+            //    return "0" + String.valueOf(minute3);
+            //}
+
             if (hour3 >= 2 && hour3 < 10) {
                 textView.setText("おはよう");
             } else if (hour3 >= 10 && hour3 < 18) {
                 textView.setText("こんにちは");
             } else
                 textView.setText("こんばんは");
-            }
         }
+    }
+
 
 
     private void TimePickerDialog() {
