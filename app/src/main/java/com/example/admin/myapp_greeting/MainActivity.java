@@ -1,4 +1,4 @@
-// 全て処理を扱う
+// あいさつ課題
 package com.example.admin.myapp_greeting;
 
 import android.app.TimePickerDialog;
@@ -23,6 +23,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView mTextView;
     EditText mEditText;
 
+    // 現在時刻を取得
+    Calendar calendar = Calendar.getInstance();
+    int hour2 = calendar.get(Calendar.HOUR_OF_DAY);
+    int minute2 = calendar.get(Calendar.MINUTE);
+
+    int hour3;
+    int minute3;
+
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,45 +41,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(this);
 
-
-        // 現在時刻を取得
-        Calendar calendar = Calendar.getInstance();
-        int hour   = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
-
-        // 時間選択ダイアログの生成
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        // 設定 ボタンクリック時の処理
-                    }
-                },
-                hour,
-                minute,
-                true);
-
         // あいさつ表示ボタン
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
 
-        // あいさつ表示欄
-        mTextView.setText(hour + ":" + minute);
-        //mTextView = (TextView) findViewById(R.id.textView);
     }
+
 
     // ボタンなどを押したときの処理
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.button1) {
             TimePickerDialog();
-            //hour = timePicker.getHour();
-            //minute = TimePickerDialog.hourOfDay();
         } else if (v.getId() == R.id.button2) {
-            //mTextView.setText(hour + ":" + minute);
-            mTextView.setText(mEditText.getText().toString());
+
+            TextView textView = (TextView) findViewById(R.id.textView);
+            //textView.setText(hour3 + ":" + minute3);
+
+            if (hour3 >= 2 && hour3 < 10) {
+                textView.setText("おはよう");
+            } else if (hour3 >= 10 && hour3 < 18) {
+                textView.setText("こんにちは");
+            } else
+                textView.setText("こんばんは");
+            }
         }
-    }
+
+
 
     private void TimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -79,15 +76,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         Log.d("UI-PARTS", String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
+                        //                // 設定 ボタンクリック時の処理
+                                        hour3 = hourOfDay;
+                                       minute3 = minute;
                     }
                 },
-                13, // 初期値（時間）
-                6,  // 初期値（分）
+                hour2, // 初期値（時間）
+                minute2,  // 初期値（分）
                 true);
         timePickerDialog.show();
 
     }
-
-
 
 }
